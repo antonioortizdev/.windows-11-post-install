@@ -612,8 +612,9 @@ Adjusts Discord so it does not steal FPS or add latency while gaming.
 **Steps**
 
 1. Open **Discord → User Settings** (gear icon).
-2. Go to **Game Overlay**.
-   - Disable **Enable in-game overlay**.
+2. Go to **Activity Settings > Game Overlay**.
+   - Disable **Enable Overlay**.
+   - Disable **Enable Legacy Overlay**.
 3. Go to **Advanced**.
    - **Hardware Acceleration:**
      - If your CPU is weak and GPU is strong → **On**.
