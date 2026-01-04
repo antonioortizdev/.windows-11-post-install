@@ -169,23 +169,40 @@ Game Mode prioritizes game processes over background tasks and can reduce interf
 
 ### 1.4 Power Plan: Ultimate / Maximum Performance
 
-**Where:**
-Power plan creation via PowerShell, then classic Power Options UI.
+**Where:** Power plan creation via PowerShell, then classic Power Options UI.  
 
-**What it does:**
-Enables the hidden **Ultimate / Maximum Performance** power plan so the CPU does not aggressively downclock or park cores, improving minimum FPS and responsiveness (especially on desktops).
+**What it does:** Enables the hidden Ultimate / Maximum Performance power plan so the CPU does not aggressively downclock or park cores, improving minimum FPS and responsiveness (especially on desktops).
 
-**Steps**
+### Steps
 
-1. Open **PowerShell** as Administrator (Win key → type `PowerShell` → right-click → **Run as administrator**).
+1. Open PowerShell as Administrator  
+   *(Win key → type `PowerShell` → right-click → Run as administrator)*
+
 2. Run:
 
-   ```powershell
-   powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
-   ```
+```powershell
+powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+```
 
-3. Press **Win + R**, type `powercfg.cpl`, press Enter.
-4. Under **Show additional plans**, select **Ultimate performance** (or **Maximum performance**).
+This command creates a copy of the Ultimate Performance plan and returns a new GUID, for example:
+
+Power Scheme GUID: 20ee2ea0-fcc2-4afe-8b76-f3ee2a49845b (Ultimate Performance)
+
+3. Activate the new plan using the GUID returned above:
+
+```powershell
+powercfg -setactive 20ee2ea0-fcc2-4afe-8b76-f3ee2a49845b
+```
+
+4. (Optional) Open the classic Power Options UI to verify:
+
+Win + R → powercfg.cpl → Enter
+
+markdown
+Copy code
+
+The plan should appear under **Show additional plans** as  
+**Ultimate performance / Maximum performance**.
 
 **Restart required:** No (but recommended after major power plan changes).
 
