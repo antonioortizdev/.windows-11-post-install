@@ -849,111 +849,189 @@ After this, Windows (and Xbox Game Bar, if reinstalled) can reclaim those protoc
 ### 6.5 Ryzen 7 5800X3D Undervolt Script (`undervolt_cpu_ryzen7_5800x3d.bat`)
 
 **File:** `./scripts/undervolt_cpu_ryzen7_5800x3d.bat`  
-**Requires:**  
-- CPU AMD Ryzen 7 5800X3D (AM4) (duh...) 
-- [PBO2 Tuner]([https://github.com](https://www.overclock.net/threads/corecycler-tool-for-testing-single-core-stability-e-g-curve-optimizer-settings.1777398/page-45?post_id=28999750#post-28999750)) installed at:  
-  `C:\Program Files\PBO2Tuner\PBO2 tuner.exe`  
+
+**Requires:**
+
+- CPU **AMD Ryzen 7 5800X3D (AM4)**
+- **PBO2 Tuner** installed to:
+
+  ```
+  C:\Program Files\PBO2Tuner\
+  ```
+
 - BIOS with **PBO** and **Curve Optimizer** enabled/unlocked
 
-What this script does
+---
 
-This is a helper launcher for PBO2 Tuner, preconfigured specifically for a Ryzen 7 5800X3D:
+#### Install PBO2 Tuner (required before running the script)
 
-Starts PBO2 tuner with:
+This toolkit includes the installer bundle:
 
-Per-core curve optimizer offsets:
 ```
--30 -30 -30 -30 -30 -30 -30 -30
+./windows-11-post-install/scripts/PBO2Tuner.7z
 ```
-→ negative values = undervolt / more aggressive boosting behaviour.
 
-PBO limits (PPT / TDC / EDC):
+To install it:
 
-120 → PPT (Socket power limit, in watts)
+1. Open the `scripts` folder.
+2. Right-click `PBO2Tuner.7z` → **Extract here**
+   (or extract using 7-Zip / PeaZip).
+3. Move the extracted folder to:
 
-75 → TDC (sustained current limit, in amps)
+```
+C:\Program Files\
+```
 
-110 → EDC (peak/short current limit, in amps)
+After installation, you should have:
 
-Final 0 → additional flag parameter (as used by PBO2 Tuner; here left at default).
-
-In practice, when you run this .bat:
-
-It launches PBO2 tuner with the specified curve offsets and power limits.
-
-PBO2 tuner applies those values to the CPU for the current session (until reboot, or depending on how PBO2 is configured to persist).
-
-This is not a generic tweak — it is tailored to a single CPU model and a specific silicon quality assumption.
-
-How to run it
-
-Ensure PBO2 Tuner is installed at:
 ```
 C:\Program Files\PBO2Tuner\PBO2 tuner.exe
 ```
 
-If it is installed elsewhere, either:
+> If you install it anywhere else, edit the `.bat` script and update the path.
 
-Move it to that path, or
+---
 
-Edit the .bat and update the path accordingly.
+#### Script content
 
-Run the script manually:
-
-Double-click undervolt_cpu_ryzen7_5800x3d.bat, or
-
-From a normal or elevated Terminal:
-```
-cd <path-to-this-toolkit-root>
-.\scripts\undervolt_cpu_ryzen7_5800x3d.bat
+```bat
+start "whatever" "C:\Program Files\PBO2Tuner\PBO2 tuner.exe" -30 -30 -30 -30 -30 -30 -30 -30 120 75 110 0
 ```
 
-PBO2 Tuner should open (or apply settings silently depending on its configuration) with the specified undervolt and PBO limits.
+---
 
-Optional: apply automatically on startup
+#### What this script does
 
-If you are happy with the stability and thermals, you can make this run at logon:
+This script is a **helper launcher for PBO2 Tuner**, pre‑configured specifically for a **Ryzen 7 5800X3D**.
 
-Press Win + R, type shell:startup, press Enter.
+It applies:
 
-Create a shortcut in that folder pointing to:
+- Curve Optimizer undervolt (per‑core):
 
-<path-to-this-toolkit>\scripts\undervolt_cpu_ryzen7_5800x3d.bat
+  ```
+  -30 -30 -30 -30 -30 -30 -30 -30
+  ```
 
+  → negative values = undervolt  
+  → allows higher boost at the same voltage envelope
 
-On next login, Windows will launch the script, which in turn launches PBO2 Tuner with your preset values.
+- PBO limits (PPT / TDC / EDC):
 
-If you prefer Task Scheduler instead (e.g. “run with highest privileges” and “on logon”), create a task that runs this .bat or PBO2 tuner.exe directly with the same arguments.
+  - `120` → PPT (socket power limit, watts)
+  - `75`  → TDC (sustained current limit, amps)
+  - `110` → EDC (peak / short‑term current limit, amps)
 
-Safety, caveats & stability testing
+- Final `0` → reserved flag parameter (left at default)
 
-These values (–30 on all cores) are aggressive for some chips and may not be stable on all 5800X3D samples.
+When executed:
 
-Undervolting/overclocking always carries a risk of:
+1. PBO2 Tuner is launched with these arguments.
+2. The settings are applied **for the current session only**.
+3. They reset after reboot unless reapplied.
 
-WHEA errors
+This is **not a generic profile** — it is tuned for:
 
-Random reboots
+- Ryzen 5800X3D only
+- with an assumed decent silicon quality
 
-Game or stress-test crashes
+---
 
-Recommended:
+#### How to run it
 
-After applying the script, run stability tests:
+1. Verify this file exists:
 
-At least one heavy game session (1–2 hours).
+   ```
+   C:\Program Files\PBO2Tuner\PBO2 tuner.exe
+   ```
 
-Optional: stress tests like OCCT, y-cruncher or Cinebench loops.
+2. Then run the undervolt script:
 
-If you see crashes or WHEA errors:
+- Double‑click:
 
-Reduce offsets (e.g. edit the .bat to -20 -20 -20 -20 -20 -20 -20 -20).
+  ```
+  undervolt_cpu_ryzen7_5800x3d.bat
+  ```
 
-Or revert to your previous PBO / Curve Optimizer settings.
+- Or via Terminal / PowerShell:
 
-If at any point you want to stop using this tweak, just:
+  ```powershell
+  cd <path-to-this-toolkit-root>
+  .\scripts\undervolt_cpu_ryzen7_5800x3d.bat
+  ```
 
-Stop running the script / remove it from Startup or Task Scheduler, and
+Depending on your PBO2 Tuner configuration, it may:
 
-Reboot — PBO2 Tuner changes are not “hard-flashed” into the CPU; they are applied per session.
+- open a UI window, or
+- apply settings silently
 
+---
+
+#### Optional — apply automatically on startup
+
+Only do this **after confirming stability**.
+
+**Method A — Startup folder**
+
+1. Press **Win + R**
+2. Type:
+
+   ```
+   shell:startup
+   ```
+
+3. Create a shortcut to:
+
+```
+<toolkit>\scripts\undervolt_cpu_ryzen7_5800x3d.bat
+```
+
+---
+
+**Method B — Task Scheduler (recommended)**
+
+Use:
+
+- Trigger → **At logon**
+- Run with highest privileges
+- Run whether user is logged in or not
+
+Target = this `.bat` script  
+(or `PBO2 tuner.exe` with the same arguments)
+
+---
+
+#### Safety, caveats & stability testing
+
+The `–30` all‑core curve is **aggressive** for some chips.
+
+Possible symptoms of instability:
+
+- WHEA errors
+- micro‑stutters under load
+- random reboots
+- game or stress‑test crashes
+
+Recommended validation:
+
+- 1–2 hours of real‑world gaming
+- optionally run:
+  - OCCT
+  - y‑cruncher
+  - Cinebench loop
+
+If unstable:
+
+- reduce offsets, e.g.
+
+  ```
+  -20 -20 -20 -20 -20 -20 -20 -20
+  ```
+
+- or revert to your previous PBO profile
+
+To disable the tweak:
+
+- remove it from Startup / Task Scheduler
+- reboot
+
+PBO2 Tuner changes are **not flashed permanently** — they are session‑based.
