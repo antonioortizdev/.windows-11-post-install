@@ -863,19 +863,16 @@ After this, Windows (and Xbox Game Bar, if reinstalled) can reclaim those protoc
 
 ---
 
-#### Install PBO2 Tuner (required before running the script)
+#### Install PBO2 Tuner (download from project Release)
 
-This toolkit includes the installer bundle:
+PBO2 Tuner is **not stored inside the repository** to keep the repo clean and lightweight.
 
-```
-./windows-11-post-install/scripts/PBO2Tuner.7z
-```
+Download the packaged bundle from the project’s GitHub Release page [here](./releases/tag/tools-5800x3d-undervolt-v1):
 
-To install it:
+Then:
 
-1. Open the `scripts` folder.
-2. Right-click `PBO2Tuner.7z` → **Extract here**
-   (or extract using 7-Zip / PeaZip).
+1. Download `PBO2Tuner.7z`
+2. Extract it with 7‑Zip / PeaZip
 3. Move the extracted folder to:
 
 ```
@@ -888,7 +885,7 @@ After installation, you should have:
 C:\Program Files\PBO2Tuner\PBO2 tuner.exe
 ```
 
-> If you install it anywhere else, edit the `.bat` script and update the path.
+> If you install it anywhere else, edit the `.bat` script path accordingly.
 
 ---
 
@@ -913,7 +910,7 @@ It applies:
   ```
 
   → negative values = undervolt  
-  → allows higher boost at the same voltage envelope
+  → allows higher boost within the same voltage envelope
 
 - PBO limits (PPT / TDC / EDC):
 
@@ -925,14 +922,14 @@ It applies:
 
 When executed:
 
-1. PBO2 Tuner is launched with these arguments.
-2. The settings are applied **for the current session only**.
-3. They reset after reboot unless reapplied.
+1. PBO2 Tuner is launched with these arguments
+2. Settings are applied **for the current session only**
+3. They reset after reboot unless reapplied
 
 This is **not a generic profile** — it is tuned for:
 
 - Ryzen 5800X3D only
-- with an assumed decent silicon quality
+- assuming a reasonably strong silicon sample
 
 ---
 
@@ -940,24 +937,24 @@ This is **not a generic profile** — it is tuned for:
 
 1. Verify this file exists:
 
-   ```
-   C:\Program Files\PBO2Tuner\PBO2 tuner.exe
-   ```
+```
+C:\Program Files\PBO2Tuner\PBO2 tuner.exe
+```
 
 2. Then run the undervolt script:
 
 - Double‑click:
 
-  ```
-  undervolt_cpu_ryzen7_5800x3d.bat
-  ```
+```
+undervolt_cpu_ryzen7_5800x3d.bat
+```
 
 - Or via Terminal / PowerShell:
 
-  ```powershell
-  cd <path-to-this-toolkit-root>
-  .\scripts\undervolt_cpu_ryzen7_5800x3d.bat
-  ```
+```powershell
+cd <path-to-this-toolkit-root>
+.\scripts\undervolt_cpu_ryzen7_5800x3d.bat
+```
 
 Depending on your PBO2 Tuner configuration, it may:
 
@@ -975,9 +972,9 @@ Only do this **after confirming stability**.
 1. Press **Win + R**
 2. Type:
 
-   ```
-   shell:startup
-   ```
+```
+shell:startup
+```
 
 3. Create a shortcut to:
 
@@ -989,7 +986,7 @@ Only do this **after confirming stability**.
 
 **Method B — Task Scheduler (recommended)**
 
-Use:
+Recommended options:
 
 - Trigger → **At logon**
 - Run with highest privileges
@@ -1035,3 +1032,4 @@ To disable the tweak:
 - reboot
 
 PBO2 Tuner changes are **not flashed permanently** — they are session‑based.
+
