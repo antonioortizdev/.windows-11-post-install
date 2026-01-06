@@ -49,6 +49,7 @@ Once the restore point is created, you may proceed with the tweaks below.
   - [6.3 Discord Settings](#63-discord-settings)
   - [6.4 Xbox Game Bar Annoyance Fix Script (`ms-gamebar-annoyance.bat`)](#64-xbox-game-bar-annoyance-fix-script-ms-gamebar-annoyancebat)
   - [6.5 Ryzen 7 5800X3D Undervolt Script (`undervolt_cpu_ryzen7_5800x3d.bat`)](#65-ryzen-7-5800x3d-undervolt-script-undervolt_cpu_ryzen7_5800x3dbat)
+- [7. Resources](#7-resources)
 
 ---
 
@@ -1033,3 +1034,11 @@ To disable the tweak:
 
 PBO2 Tuner changes are **not flashed permanently** — they are session‑based.
 
+---
+
+## 7. Resouces
+- https://github.com/AveYo/Gaming
+- https://github.com/PrimeO7/How-to-undervolt-AMD-RYZEN-5800X3D-Guide-with-PBO2-Tuner?tab=readme-ov-file#1-what-are-we-doing
+- https://www.overclock.net/threads/corecycler-tool-for-testing-single-core-stability-e-g-curve-optimizer-settings.1777398/page-45?post_id=28999750#post-28999750
+- https://www.wagnardsoft.com/content/How-use-Display-Driver-Uninstaller-DDU-Guide-Tutorial
+- https://beacons.ai/donpaquitotv?utm_source=ig&utm_medium=social&utm_content=link_in_bio
